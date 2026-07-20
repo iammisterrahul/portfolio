@@ -1,29 +1,180 @@
 @import "tailwindcss";
 
+/* Enable class-based dark mode toggling (in addition to system preference) */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: gray;
-  --foreground: #171717;
+  --background: #f7f7fb;
+  --foreground: #12121a;
+  --card: #ffffff;
+  --muted: #5b5b6b;
+  --border: rgba(18, 18, 26, 0.08);
+  --accent-1: #7c3aed; /* violet */
+  --accent-2: #db2777; /* pink   */
+  --accent-3: #06b6d4; /* cyan   */
+}
+
+.dark {
+  --background: #08080c;
+  --foreground: #ededf2;
+  --card: rgba(255, 255, 255, 0.03);
+  --muted: #9b9baa;
+  --border: rgba(255, 255, 255, 0.09);
+  --accent-1: #a78bfa;
+  --accent-2: #f472b6;
+  --accent-3: #22d3ee;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-muted: var(--muted);
+  --color-border-soft: var(--border);
+  --color-accent-1: var(--accent-1);
+  --color-accent-2: var(--accent-2);
+  --color-accent-3: var(--accent-3);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Grain overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
   background-image: url("/grain.svg");
-  background-repeat: no-repeat;
-  background-size: cover;
+  opacity: 0.35;
+  mix-blend-mode: overlay;
+}
+
+/* ---- Reusable helpers ---- */
+.gradient-text {
+  background-image: linear-gradient(
+    120deg,
+    var(--accent-1),
+    var(--accent-2),
+    var(--accent-3)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.gradient-border {
+  position: relative;
+  background: var(--card);
+}
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* Decorative only — must never intercept clicks on child links. */
+  pointer-events: none;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    var(--accent-1),
+    var(--accent-2),
+    var(--accent-3)
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.gradient-border:hover::before {
+  opacity: 1;
+}
+
+.glass {
+  background: var(--card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* ---- Scroll reveal ---- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---- Animated blobs ---- */
+@keyframes float-slow {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -40px) scale(1.08); }
+}
+@keyframes float-slower {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-40px, 30px) scale(1.12); }
+}
+.animate-blob-1 { animation: float-slow 14s ease-in-out infinite; }
+.animate-blob-2 { animation: float-slower 18s ease-in-out infinite; }
+
+/* ---- Aurora gradient shift for hero heading ---- */
+@keyframes shine {
+  to { background-position: 200% center; }
+}
+.animate-shine {
+  background-size: 200% auto;
+  animation: shine 6s linear infinite;
+}
+
+/* ---- Marquee for skills strip ---- */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+.marquee-pause:hover .animate-marquee {
+  animation-play-state: paused;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--accent-1), var(--accent-3));
+  border-radius: 999px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1; transform: none; }
 }
