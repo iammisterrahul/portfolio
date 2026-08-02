@@ -2,7 +2,7 @@ export const profile = {
   name: "Rahul Rajan",
   title: "Frontend-Heavy Fullstack Developer",
   stack: "React.js · Next.js · Web3",
-  location: "Thrissur, Kerala, India – 680541",
+  location: "Thrissur, Kerala, India",
   city: "Thrissur",
   region: "Kerala",
   country: "IN",
