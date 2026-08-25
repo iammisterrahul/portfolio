@@ -28,7 +28,6 @@ export default function Projects() {
               href={project.url}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`Visit ${project.name} (opens in a new tab)`}
               className="gradient-border glass group flex h-full flex-col rounded-2xl border border-border-soft p-6 transition-transform duration-300 hover:-translate-y-1.5"
             >
               <div className="mb-4 flex items-center justify-between">
@@ -64,6 +63,10 @@ export default function Projects() {
                 <span className="h-1.5 w-1.5 rounded-full bg-accent-3" />
                 {domainOf(project.url)}
               </span>
+
+              {/* Announced by screen readers; keeps the accessible name a
+                  superset of the visible text (WCAG 2.5.3 Label in Name). */}
+              <span className="sr-only">(opens in a new tab)</span>
             </a>
           </Reveal>
         ))}

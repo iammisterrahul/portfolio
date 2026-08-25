@@ -1,7 +1,12 @@
 import { profile, stats } from "../data/resume";
 import Reveal from "./ui/Reveal";
+import CountUp from "./ui/CountUp";
 import ProfilePhoto from "./ui/ProfilePhoto";
 import { ArrowIcon, LinkedInIcon, MailIcon, PinIcon } from "./ui/Icons";
+
+// Server-only flag, so it never reaches the client bundle. Unset (or anything
+// other than "false") keeps the badge visible.
+const showAvailability = process.env.SHOW_AVAILABILITY_BADGE !== "false";
 
 export default function Hero() {
   return (
@@ -12,15 +17,17 @@ export default function Hero() {
       <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
         {/* Left: copy */}
         <div>
-          <Reveal>
-            <span className="inline-flex items-center gap-2 rounded-full border border-border-soft bg-card px-4 py-1.5 text-sm text-muted backdrop-blur">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
+          {showAvailability && (
+            <Reveal>
+              <span className="inline-flex items-center gap-2 rounded-full border border-border-soft bg-card px-4 py-1.5 text-sm text-muted backdrop-blur">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
+                </span>
+                Available for new opportunities
               </span>
-              Available for new opportunities
-            </span>
-          </Reveal>
+            </Reveal>
+          )}
 
           <Reveal delay={80}>
             <h1 className="mt-6 text-4xl font-bold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl">
@@ -80,7 +87,11 @@ export default function Hero() {
 
         {/* Right: photo (placeholder until /public/rahul-rajan.png is added) */}
         <Reveal delay={200} className="mx-auto w-full max-w-sm">
-          <ProfilePhoto src={profile.photo} alt={`Portrait of ${profile.name}`} />
+          <ProfilePhoto
+            src={profile.photo}
+            srcLight={profile.photoLight}
+            alt={`Portrait of ${profile.name}`}
+          />
         </Reveal>
       </div>
 
@@ -90,7 +101,8 @@ export default function Hero() {
           {stats.map((s) => (
             <div key={s.label} className="text-center">
               <div className="gradient-text text-3xl font-bold sm:text-4xl">
-                {s.value}
+                {/* delay matches this block's <Reveal delay={300}> */}
+                <CountUp value={s.value} delay={300} />
               </div>
               <div className="mt-1 text-xs text-muted sm:text-sm">{s.label}</div>
             </div>

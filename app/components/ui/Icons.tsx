@@ -84,3 +84,50 @@ export function XIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+export function AtomIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg {...base} {...props} aria-hidden>
+      <circle cx="12" cy="12" r="1" />
+      <path d="M20.2 20.2c2.04-2.03.02-7.36-4.5-11.9-4.54-4.52-9.87-6.54-11.9-4.5-2.04 2.03-.02 7.36 4.5 11.9 4.54 4.52 9.87 6.54 11.9 4.5Z" />
+      <path d="M15.7 15.7c4.52-4.54 6.54-9.87 4.5-11.9-2.03-2.04-7.36-.02-11.9 4.5-4.52 4.54-6.54 9.87-4.5 11.9 2.03 2.04 7.36.02 11.9-4.5Z" />
+    </svg>
+  );
+}
+
+export function LinkIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg {...base} {...props} aria-hidden>
+      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+    </svg>
+  );
+}
+
+export function SparkleIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg {...base} {...props} aria-hidden>
+      <path d="M12 3l1.9 5.6a2 2 0 0 0 1.5 1.3L21 11l-5.6 1.9a2 2 0 0 0-1.3 1.5L12 21l-1.9-5.6a2 2 0 0 0-1.5-1.3L3 12l5.6-1.9a2 2 0 0 0 1.3-1.5z" />
+      <path d="M19 3v3M20.5 4.5h-3" />
+    </svg>
+  );
+}
+
+export function GraduationCapIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg {...base} {...props} aria-hidden>
+      <path d="M21.4 10.9a1 1 0 0 0 0-1.8L12.8 5.2a2 2 0 0 0-1.6 0L2.6 9.1a1 1 0 0 0 0 1.8l8.6 3.9a2 2 0 0 0 1.6 0z" />
+      <path d="M22 10v6" />
+      <path d="M6 12.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-3.5" />
+    </svg>
+  );
+}
+
+export function CameraIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg {...base} {...props} aria-hidden>
+      <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z" />
+      <circle cx="12" cy="13" r="3" />
+    </svg>
+  );
+}
