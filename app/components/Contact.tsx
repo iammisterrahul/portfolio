@@ -101,11 +101,6 @@ export default function Contact() {
                 href={href}
                 target={href.startsWith("http") ? "_blank" : undefined}
                 rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                aria-label={
-                  href.startsWith("http")
-                    ? `${label} (opens in a new tab)`
-                    : label
-                }
                 className="group flex flex-col items-center gap-2 rounded-2xl border border-border-soft bg-card p-5 transition-colors hover:border-accent-1"
               >
                 <span className="grid h-10 w-10 place-items-center rounded-full bg-gradient-to-br from-accent-1/20 to-accent-3/20 text-accent-2">
@@ -117,6 +112,11 @@ export default function Contact() {
                 <span className="break-all text-sm font-medium transition-colors group-hover:text-accent-2">
                   {value}
                 </span>
+                {href.startsWith("http") && (
+                  // Screen-reader-only, so the accessible name stays a superset
+                  // of the visible text (WCAG 2.5.3 Label in Name).
+                  <span className="sr-only">(opens in a new tab)</span>
+                )}
               </a>
             ))}
           </div>

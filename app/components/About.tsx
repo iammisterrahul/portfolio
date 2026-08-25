@@ -1,22 +1,23 @@
 import { languages, profile } from "../data/resume";
 import Reveal from "./ui/Reveal";
 import Section from "./ui/Section";
+import { AtomIcon, LinkIcon, SparkleIcon } from "./ui/Icons";
 
 const highlights = [
   {
     title: "Frontend architecture",
     body: "Scalable, high-performance UI with React.js, Next.js & TypeScript.",
-    icon: "⚛️",
+    Icon: AtomIcon,
   },
   {
     title: "Web3 & blockchain",
     body: "Smart contracts, wallet integration and Web3.js in production apps.",
-    icon: "🔗",
+    Icon: LinkIcon,
   },
   {
     title: "UI/UX optimization",
     body: "Lighthouse tuning, cross-browser testing and measurable engagement gains.",
-    icon: "✨",
+    Icon: SparkleIcon,
   },
 ];
 
@@ -29,12 +30,14 @@ export default function About() {
       description={profile.summary}
     >
       <div className="grid gap-4 sm:grid-cols-3">
-        {highlights.map((h, i) => (
-          <Reveal key={h.title} delay={i * 100} as="article">
+        {highlights.map(({ title, body, Icon }, i) => (
+          <Reveal key={title} delay={i * 100} as="article">
             <div className="gradient-border glass h-full rounded-2xl border border-border-soft p-6 transition-transform duration-300 hover:-translate-y-1">
-              <div className="text-3xl">{h.icon}</div>
-              <h3 className="mt-4 text-lg font-semibold">{h.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{h.body}</p>
+              <span className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-accent-1/20 to-accent-3/20 text-accent-2">
+                <Icon width={22} height={22} />
+              </span>
+              <h3 className="mt-4 text-lg font-semibold">{title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted">{body}</p>
             </div>
           </Reveal>
         ))}

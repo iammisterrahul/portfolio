@@ -17,8 +17,12 @@ export const profile = {
   twitterLabel: "",
   summary:
     "Frontend-Heavy Fullstack Developer with 5+ years of experience building scalable web applications using React.js, Next.js, TypeScript, and Node.js. Experienced in blockchain applications, Web3 integrations, UI/UX optimization, and high-performance frontend architecture.",
-  /** Drop your photo at /public/rahul-rajan.png (or update this path) and it appears in the hero. */
+  /**
+   * Hero portrait, one per theme — the two files are the same illustration on
+   * different backgrounds, so each blends into its own theme's frame.
+   */
   photo: "/rahul-rajan.png",
+  photoLight: "/rahul-rajan-light.webp",
 } as const;
 
 /**
